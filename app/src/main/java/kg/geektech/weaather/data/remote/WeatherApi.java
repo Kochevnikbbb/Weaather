@@ -6,7 +6,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface WeatherApi {
-    @GET("weather?")
+    @GET("weather")
     Call<MainResponse> getApi(
             @Query("q") String city,
             @Query("appid") String appId,

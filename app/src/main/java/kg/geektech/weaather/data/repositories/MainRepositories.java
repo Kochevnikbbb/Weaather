@@ -4,6 +4,8 @@ import android.content.res.Resources;
 
 import androidx.lifecycle.MutableLiveData;
 
+import javax.inject.Inject;
+
 import kg.geektech.weaather.App;
 import kg.geektech.weaather.common.Resource;
 import kg.geektech.weaather.data.models.MainResponse;
@@ -16,17 +18,19 @@ public class MainRepositories {
     private WeatherApi api;
     private String city;
 
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    @Inject
     public MainRepositories(WeatherApi api) {
         this.api = api;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
-    public MutableLiveData<Resource<MainResponse>> getCharacters(){
+    public MutableLiveData<Resource<MainResponse>> getWeather(String city){
         MutableLiveData<Resource<MainResponse>> liveData = new MutableLiveData<>();
         liveData.setValue(Resource.loading());
-        api.getApi("Bishkek","89ac1f837c318c7a142986110e0b9c02","metric").enqueue(new Callback<MainResponse>() {
+        api.getApi(city,"89ac1f837c318c7a142986110e0b9c02","metric").enqueue(new Callback<MainResponse>() {
             @Override
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
                 if (response.isSuccessful()&&response.body() != null){
@@ -43,7 +47,9 @@ public class MainRepositories {
             }
         });
         return liveData;
-
-
     }
+
+
+
+
 }

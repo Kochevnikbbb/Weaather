@@ -12,7 +12,8 @@
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/ic_sand_clock.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/ic_vector.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_weather.xml" value="0.4" />
+        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_search.xml" value="0.22826086956521738" />
+        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_weather.xml" value="0.2" />
       </map>
     </option>
   </component>
