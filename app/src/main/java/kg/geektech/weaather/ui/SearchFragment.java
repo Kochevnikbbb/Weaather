@@ -32,10 +32,11 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     @Override
     protected void setupListeners() {
         binding.btn.setOnClickListener(view -> {
-            Prefs prefs = new Prefs(requireContext());
-            prefs.saveCity(binding.etText.getText().toString());
-            controller.navigateUp();
-            controller.navigate(R.id.weatherFragment);
+            String city = binding.etText.getText().toString();
+            SearchFragmentDirections.ActionSearchFragmentToWeatherFragment action =
+                    SearchFragmentDirections.actionSearchFragmentToWeatherFragment();
+            action.setCity(city);
+            controller.navigate(action);
         });
 
 

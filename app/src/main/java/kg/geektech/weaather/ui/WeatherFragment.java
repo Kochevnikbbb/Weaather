@@ -129,15 +129,9 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
         return formatter.format(calendar.getTime());
     }
 
-    private String getCity() {
-        Prefs prefs = new Prefs(requireActivity());
-        String a = prefs.getCity();
-        return a;
-    }
-
     @Override
     protected void callRequests() {
-        viewModel.getWeather(getCity());
+        viewModel.getWeather(args.getCity());
     }
 
     @Override
