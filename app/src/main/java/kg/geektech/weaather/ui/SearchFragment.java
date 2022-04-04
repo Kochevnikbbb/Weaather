@@ -18,11 +18,6 @@ public class SearchFragment extends BaseFragment<FragmentSearchBinding> {
     }
 
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
 
     @Override
     protected void setupViews() {

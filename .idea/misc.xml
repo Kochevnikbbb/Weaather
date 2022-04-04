@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/bc_5days.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/bc_location.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/bc_staf.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/ic__01_wind_1.xml" value="0.1805" />
@@ -13,7 +14,8 @@
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/drawable/ic_vector.xml" value="0.1805" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/activity_main.xml" value="0.22826086956521738" />
         <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_search.xml" value="0.22826086956521738" />
-        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_weather.xml" value="0.2" />
+        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/fragment_weather.xml" value="0.264" />
+        <entry key="..\:/Users/bbbaa/AndroidStudioProjects/Weaather/app/src/main/res/layout/item_5days.xml" value="0.536" />
       </map>
     </option>
   </component>

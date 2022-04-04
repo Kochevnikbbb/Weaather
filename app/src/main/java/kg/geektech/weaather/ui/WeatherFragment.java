@@ -39,13 +39,13 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     private WeatherViewModel viewModel;
     private NavController controller;
     private WeatherFragmentArgs args;
+    private WeatherAdapter adapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            args = WeatherFragmentArgs.fromBundle(getArguments());
-        }
+        adapter = new WeatherAdapter();
+        args = WeatherFragmentArgs.fromBundle(getArguments());
     }
 
     @Override
@@ -68,7 +68,25 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
                 }
                 case LOADING: {
                     binding.progress.setVisibility(View.VISIBLE);
-
+                    break;
+                }
+            }
+        });
+        viewModel.liveData2.observe(getViewLifecycleOwner(),mainResponse2Resource -> {
+            switch (mainResponse2Resource.status) {
+                case SUCCESS: {
+                    adapter.setWeatherDays(mainResponse2Resource.data.getList());
+                    adapter.setCity(mainResponse2Resource.data.getCity());
+                    //adapter.set
+                    binding.progress.setVisibility(View.GONE);
+                    break;
+                }
+                case ERROR: {
+                    binding.progress.setVisibility(View.GONE);
+                    break;
+                }
+                case LOADING: {
+                    binding.progress.setVisibility(View.VISIBLE);
                     break;
                 }
             }
@@ -79,16 +97,17 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     @Override
     protected void setupViews() {
         viewModel = new ViewModelProvider(requireActivity()).get(WeatherViewModel.class);
+        binding.recycler5Days.setAdapter(adapter);
+
     }
 
     @Override
     protected void setupListeners() {
-        controller = Navigation.findNavController(requireActivity(),R.id.nav_host);
+        controller = Navigation.findNavController(requireActivity(), R.id.nav_host);
         binding.tvLocation.setOnClickListener(view -> {
             controller.navigate(R.id.action_weatherFragment_to_searchFragment);
         });
     }
-
 
 
     private void setData(MainResponse response) {
@@ -99,6 +118,7 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
         String humidity = response.getMain().getHumidity() + "%";
         String barometer = response.getMain().getPressure() + "mBar";
         String mainWeather = response.getWeather().get(0).getMain();
+
         String tempNow = String.valueOf((int) Math.round(response.getMain().getTemp()));
 
         Glide.with(requireActivity()).load(urlImg).into(binding.ivWeather);
@@ -131,7 +151,10 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
 
     @Override
     protected void callRequests() {
-        viewModel.getWeather(args.getCity());
+        if(args.getCity() != null) {
+            viewModel.getWeather(args.getCity());
+            viewModel.getWeather5Days(args.getCity());
+        }
     }
 
     @Override

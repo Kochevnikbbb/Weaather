@@ -32,6 +32,7 @@
         <argument
             app:argType="string"
             android:name="city"
+            android:defaultValue="Bishkek"
             app:nullable="true"/>
     </fragment>
 </navigation>
