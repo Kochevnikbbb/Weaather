@@ -3,6 +3,8 @@ package kg.geektech.weaather.ui;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
@@ -10,6 +12,7 @@ import kg.geektech.weaather.common.Resource;
 import kg.geektech.weaather.data.models.MainResponse;
 import kg.geektech.weaather.data.models.days.MainResponse2;
 import kg.geektech.weaather.data.repositories.MainRepositories;
+import kg.geektech.weaather.room.WeatherDao;
 
 @HiltViewModel
 public class WeatherViewModel extends ViewModel {

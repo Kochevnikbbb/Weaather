@@ -4,6 +4,9 @@ import static kg.geektech.weaather.common.Status.ERROR;
 import static kg.geektech.weaather.common.Status.LOADING;
 import static kg.geektech.weaather.common.Status.SUCCESS;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -26,12 +29,17 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import dagger.hilt.android.AndroidEntryPoint;
+import kg.geektech.weaather.ConnectionDetector;
 import kg.geektech.weaather.R;
 import kg.geektech.weaather.base.BaseFragment;
 import kg.geektech.weaather.data.models.MainResponse;
 import kg.geektech.weaather.data.models.Sys;
 import kg.geektech.weaather.databinding.FragmentWeatherBinding;
+import kg.geektech.weaather.di.AppModule;
+import kg.geektech.weaather.room.WeatherDao;
 
 @AndroidEntryPoint
 public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
@@ -40,12 +48,20 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
     private NavController controller;
     private WeatherFragmentArgs args;
     private WeatherAdapter adapter;
+    Boolean isInternetPresent = false;
+    ConnectionDetector cd;
+
+
+
+    @Inject
+    WeatherDao dao;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         adapter = new WeatherAdapter();
         args = WeatherFragmentArgs.fromBundle(getArguments());
+        cd = new ConnectionDetector(requireContext().getApplicationContext());
     }
 
     @Override
@@ -55,44 +71,53 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
 
     @Override
     protected void setupObservers() {
-        viewModel.liveData.observe(getViewLifecycleOwner(), mainResponseResource -> {
-            switch (mainResponseResource.status) {
-                case SUCCESS: {
-                    setData(mainResponseResource.data);
-                    binding.progress.setVisibility(View.GONE);
-                    break;
+        //if (ConnectingToInternet(getContext()) == )
+        isInternetPresent = cd.ConnectingToInternet();
+
+        if (isInternetPresent) {
+            viewModel.liveData.observe(getViewLifecycleOwner(), mainResponseResource -> {
+                switch (mainResponseResource.status) {
+                    case SUCCESS: {
+                        setData(mainResponseResource.data);
+                        binding.progress.setVisibility(View.GONE);
+                        break;
+                    }
+                    case ERROR: {
+                        binding.progress.setVisibility(View.GONE);
+                        break;
+                    }
+                    case LOADING: {
+                        binding.progress.setVisibility(View.VISIBLE);
+                        break;
+                    }
                 }
-                case ERROR: {
-                    binding.progress.setVisibility(View.GONE);
-                    break;
+            });
+            viewModel.liveData2.observe(getViewLifecycleOwner(), mainResponse2Resource -> {
+                switch (mainResponse2Resource.status) {
+                    case SUCCESS: {
+                        adapter.setWeatherDays(mainResponse2Resource.data.getList());
+                        adapter.setCity(mainResponse2Resource.data.getCity());
+                        //adapter.set
+                        binding.progress.setVisibility(View.GONE);
+                        break;
+                    }
+                    case ERROR: {
+                        binding.progress.setVisibility(View.GONE);
+                        break;
+                    }
+                    case LOADING: {
+                        binding.progress.setVisibility(View.VISIBLE);
+                        break;
+                    }
                 }
-                case LOADING: {
-                    binding.progress.setVisibility(View.VISIBLE);
-                    break;
-                }
-            }
-        });
-        viewModel.liveData2.observe(getViewLifecycleOwner(),mainResponse2Resource -> {
-            switch (mainResponse2Resource.status) {
-                case SUCCESS: {
-                    adapter.setWeatherDays(mainResponse2Resource.data.getList());
-                    adapter.setCity(mainResponse2Resource.data.getCity());
-                    //adapter.set
-                    binding.progress.setVisibility(View.GONE);
-                    break;
-                }
-                case ERROR: {
-                    binding.progress.setVisibility(View.GONE);
-                    break;
-                }
-                case LOADING: {
-                    binding.progress.setVisibility(View.VISIBLE);
-                    break;
-                }
-            }
-        });
+            });
+        }else {
+            //надо взять сахраненные данные из руума
+
+        }
 
     }
+
 
     @Override
     protected void setupViews() {
