@@ -11,12 +11,20 @@ import kg.geektech.weaather.common.Resource;
 import kg.geektech.weaather.data.models.MainResponse;
 import kg.geektech.weaather.data.models.days.MainResponse2;
 import kg.geektech.weaather.data.remote.WeatherApi;
+import kg.geektech.weaather.room.WeatherDao;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainRepositories {
     private WeatherApi api;
+    private WeatherDao dao;
+
+    public MainRepositories(WeatherApi api, WeatherDao dao) {
+        this.api = api;
+        this.dao = dao;
+    }
+
     /*private String city;
 
     public void setCity(String city) {

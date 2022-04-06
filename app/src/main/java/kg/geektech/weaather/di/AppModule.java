@@ -10,6 +10,8 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import kg.geektech.weaather.data.remote.WeatherApi;
 import kg.geektech.weaather.data.repositories.MainRepositories;
+import kg.geektech.weaather.room.WeatherDao;
+import kg.geektech.weaather.room.WeatherDataBase;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -47,5 +49,9 @@ public abstract class AppModule {
     @Singleton
     public static MainRepositories provideMainRepository(WeatherApi api){
         return new MainRepositories(api);
+    }
+    @Provides
+    public static WeatherDao provideDao(WeatherDataBase database) {
+        return database.weatherDao();
     }
 }

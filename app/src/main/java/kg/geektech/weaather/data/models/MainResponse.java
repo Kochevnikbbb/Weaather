@@ -1,10 +1,13 @@
 
 package kg.geektech.weaather.data.models;
 
+import androidx.room.Entity;
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+@Entity
 public class MainResponse {
 
     @SerializedName("coord")
