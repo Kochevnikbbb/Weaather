@@ -112,8 +112,7 @@ public class WeatherFragment extends BaseFragment<FragmentWeatherBinding> {
                 }
             });
         }else {
-            //надо взять сахраненные данные из руума
-
+            setData(viewModel.getWeatherFromDb());
         }
 
     }

@@ -36,4 +36,9 @@ public class WeatherViewModel extends ViewModel {
         liveData2 = repository.getApi5Days(city);
     }
 
+    public MainResponse getWeatherFromDb() {
+        List<MainResponse> list = repository.getWeatherFromDb();
+        return list.get(list.size() - 1);
+    }
+
 }

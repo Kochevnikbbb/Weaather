@@ -4,6 +4,8 @@ import android.content.res.Resources;
 
 import androidx.lifecycle.MutableLiveData;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import kg.geektech.weaather.App;
@@ -44,6 +46,7 @@ public class MainRepositories {
             public void onResponse(Call<MainResponse> call, Response<MainResponse> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     liveData.setValue(Resource.success(response.body()));
+                    dao.insertAll(response.body());
                 } else {
                     liveData.setValue(Resource.error(response.message(), null));
 
@@ -80,5 +83,8 @@ public class MainRepositories {
         return liveData2;
     }
 
+    public List<MainResponse> getWeatherFromDb() {
+        return dao.getAllWeather();
+    }
 
 }
