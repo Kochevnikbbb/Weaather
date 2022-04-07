@@ -2,6 +2,7 @@
 package kg.geektech.weaather.data.models;
 
 import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 import androidx.room.TypeConverters;
 
 import java.util.List;
@@ -55,6 +56,7 @@ public class MainResponse {
     @SerializedName("timezone")
     @Expose
     private Integer timezone;
+    @PrimaryKey
     @SerializedName("id")
     @Expose
     private Integer id;
